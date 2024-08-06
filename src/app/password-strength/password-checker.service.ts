@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
-import {PasswordStatus} from "./enums/password-status";
-import {PasswordStrength} from "./enums/password-strength";
+import {PasswordStatus} from "../enums/password-status";
+import {PasswordStrength} from "../enums/password-strength";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class PasswordCheckerService {
   checkPasswordStatus(password: string): PasswordStatus {
     if (!password) {

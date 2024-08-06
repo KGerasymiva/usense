@@ -1,4 +1,4 @@
-import {Component, Input, input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {NgStyle} from "@angular/common";
 
 @Component({
@@ -11,5 +11,5 @@ import {NgStyle} from "@angular/common";
   styleUrl: './color-section.component.css'
 })
 export class ColorSectionComponent {
-@Input() color: string='grey';
+  @Input() color: string = 'grey';
 }
