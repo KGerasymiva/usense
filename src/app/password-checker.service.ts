@@ -6,12 +6,8 @@ import {PasswordStrength} from "./enums/password-strength";
   providedIn: 'root'
 })
 export class PasswordCheckerService {
-
-  constructor() {
-  }
-
   checkPasswordStatus(password: string): PasswordStatus {
-    if (password === null || password === '' || password === undefined) {
+    if (!password) {
       return PasswordStatus.Empty;
     }
 
@@ -23,10 +19,18 @@ export class PasswordCheckerService {
   }
 
   checkPasswordStrength(password: string): PasswordStrength {
-    if (this.checkPasswordStatus(password)!==PasswordStatus.Valid){
+    if (this.checkPasswordStatus(password) !== PasswordStatus.Valid) {
       throw new Error("Password is not valid");
     }
+    const hasLetters = /[a-zA-Z]/.test(password);
+    const hasDigits = /\d/.test(password);
+    const hasSymbols = /[!@#$%^&*(),.?":{}|<>=\-+]/.test(password);
 
-    return PasswordStrength.Strong;
+    if (hasLetters && hasDigits && hasSymbols) {
+      return PasswordStrength.Strong;
+    } else if (hasLetters && hasDigits || hasLetters && hasSymbols || hasDigits && hasSymbols) {
+      return PasswordStrength.Middle;
+    }
+    return PasswordStrength.Low;
   }
 }
